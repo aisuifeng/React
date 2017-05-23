@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>生命周期</title>
+		<!--react.min.js作用是React的核心库-->
+		<script src="react.min.js"></script>
+		<!--react-dom.js作用是提供与DOM相关功能-->
+		<script src="react-dom.min.js"></script>
+		<!--作用是将JSX语法转换成javascript语法-->
+		<script src="browser.min.js"></script>
+	</head>
+	<body>
+		<!--react渲染的模版内容插入到这个DOM节点，作为一个容器-->
+		<div id="container">
+			
+		</div>
+	</body>
+	<!--在react开发中使用JSX跟javascript不兼容，在使用JSX的地方要设置type="text/babel"-->
+	<!--babel是一个转换编译器，ES6转换成可以在浏览器中运行的代码-->
+	<script type="text/babel">
+	
+		
+		var Demo = React.createClass({
+			//1.创建阶段
+			/*流程:
+			只调用getDefaultProps方法*/
+			getDefaultProps:function(){
+				console.log("getDefaultProps");
+				return {};
+			},
+			/*2.实例化阶段
+			流程:
+			getInitialState
+			componentWillMount
+			render
+			componentDidMount*/
+			
+			getInitialState:function(){
+				//设置this.state的默认值
+				console.log("getInitialState");
+				return null;
+			},
+			componentWillMount:function(){
+				//在render之前调用
+				console.log("componentWillMount");
+				
+				
+			},
+			render:function(){
+				//渲染并返回一个虚拟的DOM
+				console.log("render");
+				return <h1>hello react</h1>;
+				
+			},
+			componentDidMount:function(){
+				
+				//在render之后调用
+				//在该方法中React会使用render方法返回的虚拟DOM对象创建真实的DOM结构
+				//可以在这个方法中读取DOM节点
+				console.log("componentDidMount");
+			},
+			/*3.更新阶段
+			流程:
+			componentWillReceiveProps
+			shouldComponentUpdate 如果返回值是false,则后三个方法不执行
+			componentWillUpdate
+			render
+			componentDidUpdate*/
+			
+			componentWillReceiveProps:function(){
+				console.log("componentWillReceiveProps");
+			},
+			shouldComponentUpdate:function(){
+				console.log("shouldComponentUpdate");
+				//return true;
+				return false;
+			},
+			componentWillUpdate:function(){
+				console.log("componentWillUpdate");
+				
+			},
+			/*render:function(){
+				console.log("render");
+			},*/
+			componentDidUpdate:function(){
+				
+				console.log("componentDidUpdate");
+			},
+			
+			/*4.销毁阶段
+			流程:
+			componentWillUnmount*/
+			
+			componentWillUnmount:function(){
+				console.log("componentWillUnmount");
+			}
+			
+		});
+		
+		//第一次创建并加载组件
+		ReactDOM.render(
+			<Demo/>,
+			document.getElementById("container")
+		);
+		/*ReactDOM.render(
+			<Demo/>,
+			document.getElementById("container")
+		);*/
+		
+		//移除节点
+		
+		ReactDOM.unmountComponentAtNode(document.getElementById("container"));
+		
+	</script>
+</html>
